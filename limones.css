@@ -28,7 +28,7 @@ body {
 
 .subtitulo {
   font-size: 1.1rem;
-  color: #94a3b8;
+  color: #010914;
   margin-bottom: 10px;
 }
 
@@ -39,8 +39,8 @@ body {
 
 /* CANVAS */
 canvas {
-  background: radial-gradient(circle, #1f2937, #020617);
-  border: 3px solid #38bdf8;
+  background: radial-gradient(circle, #091c36, #192453);
+  border: 3px solid #14313d;
   border-radius: 12px;
   display: block;
   margin: 25px auto;
@@ -66,13 +66,13 @@ canvas {
 .label {
   display: block;
   font-size: 0.9rem;
-  color: #94a3b8;
+  color: #020913;
 }
 
 .valor {
   font-size: 1.8rem;
   font-weight: bold;
-  color: #38bdf8;
+  color: #c2bf30;
 }
 
 /* BOTONES */
@@ -88,7 +88,7 @@ canvas {
   border-radius: 10px;
   cursor: pointer;
   background: linear-gradient(145deg, #1c2d35, #092e3f);
-  color: white;
+  color: rgb(139, 17, 17);
   font-weight: bold;
   transition: all 0.2s ease;
   box-shadow: 0 5px 10px rgba(0,0,0,0.3);
@@ -96,7 +96,7 @@ canvas {
 
 .botones button:hover {
   transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.5);
+  box-shadow: 0 8px 18px rgba(73, 11, 11, 0.5);
 }
 
 .botones button:active {

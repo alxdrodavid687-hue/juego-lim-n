@@ -1,52 +1,52 @@
-let canvas=document.getElementById("areaJuego");
-let ctx=canvas.getContext("2d");
-const ALTURA_SUELO=20;
-const ALTURA_PERSONAJE=60;
-const ANCHO_PERSONAJE=40;
-const ANCHO_LIMON=20;
-const ALTURA_LIMON=20;
+let canvas = document.getElementById("areaJuego");
+let ctx = canvas.getContext("2d");
+const ALTURA_SUELO = 20;
+const ALTURA_PERSONAJE = 60;
+const ANCHO_PERSONAJE = 40;
+const ANCHO_LIMON = 20;
+const ALTURA_LIMON = 20;
 
-let personajeX=canvas.width/2;
-let personajeY=canvas.height-(ALTURA_SUELO + ALTURA_PERSONAJE);
-let limonX=canvas.width/2;
-let limonY=0;
-let puntaje=0;
-let vidas=3;
-let velocidadCaida=200; // ✅ Valor inicial correcto
+let personajeX = canvas.width / 2;
+let personajeY = canvas.height - (ALTURA_SUELO + ALTURA_PERSONAJE);
+let limonX = canvas.width / 2;
+let limonY = 0;
+let puntaje = 0;
+let vidas = 3;
+let velocidadCaida = 200;
 let intervalo;
 
-function iniciar(){
-    intervalo = setInterval(bajarLimon,velocidadCaida);
+function iniciar() {
+    intervalo = setInterval(bajarLimon, velocidadCaida);
     dibujarSuelo();
     dibujarPersonaje();
     aparecerLimon();
 }
 
-function dibujarSuelo(){
-    ctx.fillStyle = "blue";
-    ctx.fillRect(0,canvas.height-ALTURA_SUELO,canvas.width, ALTURA_SUELO);
-}
-
-function dibujarPersonaje(){
+function dibujarSuelo() {
     ctx.fillStyle = "yellow";
-    ctx.fillRect(personajeX,personajeY,ANCHO_PERSONAJE,ALTURA_PERSONAJE);
+    ctx.fillRect(0, canvas.height - ALTURA_SUELO, canvas.width, ALTURA_SUELO);
 }
 
-function limitarMovimiento(){
-    if(personajeX < 0){
+function dibujarPersonaje() {
+    ctx.fillStyle = "blue";
+    ctx.fillRect(personajeX, personajeY, ANCHO_PERSONAJE, ALTURA_PERSONAJE);
+}
+
+function limitarMovimiento() {
+    if (personajeX < 0) {
         personajeX = 0;
     }
 
-    if(personajeX + ANCHO_PERSONAJE > canvas.width){
+    if (personajeX + ANCHO_PERSONAJE > canvas.width) {
         personajeX = canvas.width - ANCHO_PERSONAJE;
     }
 }
 
-function limpiarCanvas(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
+function limpiarCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-function actualizarPantalla(){
+function actualizarPantalla() {
     limpiarCanvas();
     limitarMovimiento();
     dibujarPersonaje();
@@ -54,92 +54,104 @@ function actualizarPantalla(){
     dibujarLimon();
 }
 
-function moverIzquierda(){
-    personajeX=personajeX-10;
+function moverIzquierda() {
+    personajeX = personajeX - 10;
     actualizarPantalla();
 }
 
-function moverDerecha(){
-    personajeX=personajeX+10;
+function moverDerecha() {
+    personajeX = personajeX + 10;
     actualizarPantalla();
 }
 
-function dibujarLimon(){
+function dibujarLimon() {
     ctx.fillStyle = "green";
-    ctx.fillRect(limonX,limonY,ANCHO_LIMON,ALTURA_LIMON);
+    ctx.fillRect(limonX, limonY, ANCHO_LIMON, ALTURA_LIMON);
 }
 
-function bajarLimon(){
-    limonY=limonY+10;
+function bajarLimon() {
+    limonY = limonY + 10;
     actualizarPantalla();
     detectarAtrapado();
     detectarPiso();
 }
 
-function detectarAtrapado(){
-    if(limonX + ANCHO_LIMON > personajeX &&
+function detectarAtrapado() {
+    if (limonX + ANCHO_LIMON > personajeX &&
         limonX < personajeX + ANCHO_PERSONAJE &&
         limonY + ALTURA_LIMON > personajeY &&
-        limonY < personajeY + ALTURA_PERSONAJE){
-        
+        limonY < personajeY + ALTURA_PERSONAJE) {
+
         aparecerLimon();
         puntaje = puntaje + 1;
-        mostrarEnSpan("txtPuntaje",puntaje);
-        
-        // ✅ Aquí dentro validamos el puntaje SOLO cuando se atrapa un limón
-        if(puntaje == 3){
+        mostrarEnSpan("txtPuntaje", puntaje);
+
+        // Cambiar velocidad según el puntaje
+        if (puntaje == 3) {
             velocidadCaida = 150;
             clearInterval(intervalo);
             intervalo = setInterval(bajarLimon, velocidadCaida);
         }
-        
-        if(puntaje == 6){
+
+        if (puntaje == 6) {
             velocidadCaida = 100;
             clearInterval(intervalo);
             intervalo = setInterval(bajarLimon, velocidadCaida);
         }
-        
-        if(puntaje == 10){
-            clearInterval(intervalo);
-            // ✅ Mensaje creativo como pide la consigna
-            alert("🍋🍹 ¡HAZ COSECHADO TODOS LOS LIMONES EN UNA RONDA! 🎉🥳 ¡WINNER,GANADOR!");
+
+        if (puntaje == 10) {
+            clearInterval(intervalo); // DETENER JUEGO - GANADOR
+            alert("🍋🍹 ¡NO TE RENDISTE¡EXCELENTE COSECHA! 🎉🥳 ¡WINNER, ERES GANADOR!");
         }
     }
 }
 
-function detectarPiso(){
-    if (limonY + ALTURA_LIMON >= canvas.height - ALTURA_SUELO){
+function detectarPiso() {
+    if (limonY + ALTURA_LIMON >= canvas.height - ALTURA_SUELO) {
         aparecerLimon();
         vidas = vidas - 1;
-        mostrarEnSpan("txtVidas",vidas);
-        
-        if(vidas <= 0){
-            clearInterval(intervalo);
+        mostrarEnSpan("txtVidas", vidas);
+
+        if (vidas <= 0) {
+            clearInterval(intervalo); // DETENER JUEGO - GAME OVER
             alert("💀 GAME OVER 💀 Perdiste con " + puntaje + " puntos");
         }
     }
 }
 
-function aparecerLimon(){
-    limonX=generarAleatorio(0,canvas.width-ANCHO_LIMON);
-    limonY=0;
+function aparecerLimon() {
+    limonX = generarAleatorio(0, canvas.width - ANCHO_LIMON);
+    limonY = 0;
     actualizarPantalla();
 }
 
-function reiniciar(){
+function reiniciar() {
+    // Setear valores iniciales
     puntaje = 0;
     vidas = 3;
     velocidadCaida = 200;
 
+    // Reiniciar posiciones
     personajeX = canvas.width / 2;
     personajeY = canvas.height - (ALTURA_SUELO + ALTURA_PERSONAJE);
-    aparecerLimon();
+    limonY = 0;
 
-    mostrarEnSpan("txtPuntaje",puntaje);
-    mostrarEnSpan("txtVidas",vidas);
+    // Actualizar pantalla con los valores reiniciados
+    mostrarEnSpan("txtPuntaje", puntaje);
+    mostrarEnSpan("txtVidas", vidas);
 
-    clearInterval(intervalo);
-    intervalo = setInterval(bajarLimon,velocidadCaida);
+    // Detener el intervalo actual si existe
+    if (intervalo) {
+        clearInterval(intervalo);
+    }
+
+    // Generar nueva posición aleatoria para el limón
+    limonX = generarAleatorio(0, canvas.width - ANCHO_LIMON);
+
+    // Iniciar nuevo intervalo
+    intervalo = setInterval(bajarLimon, velocidadCaida);
+
+    // Refrescar el canvas
     actualizarPantalla();
 }
 
