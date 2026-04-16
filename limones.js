@@ -102,7 +102,7 @@ function detectarAtrapado(){
         if(puntaje == 10){
             clearInterval(intervalo);
             // ✅ Mensaje creativo como pide la consigna
-            alert("🍋🍹 ¡TIENES LOS LIMONES, AHORA TE FALTA SAL Y TEQUILA! 🎉🥳 ¡ERES EL GRAN GANADOR!");
+            alert("🍋🍹 ¡HAZ COSECHADO TODOS LOS LIMONES EN UNA RONDA! 🎉🥳 ¡WINNER,GANADOR!");
         }
     }
 }

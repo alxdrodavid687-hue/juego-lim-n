@@ -2,11 +2,11 @@ body {
   font-family: 'Segoe UI', Tahoma, sans-serif;
   /* IMAGEN DE FONDO */
   background:
-    linear-gradient(rgba(2,6,23,0.85), rgba(2,6,23,0.95)),
+    linear-gradient(rgba(137, 139, 146, 0.85), rgba(36, 42, 70, 0.95)),
     url("fondo.png") no-repeat center center fixed;
   background-size: cover;
 
-  color: #e2e8f0;
+  color: #8eb621;
   text-align: center;
   margin: 0;
   padding: 20px;
@@ -138,6 +138,6 @@ canvas {
 .imagen-top:hover {
   transform: scale(1.08);
   box-shadow:
-    0 0 25px rgba(39, 146, 17, 0.9),
-    0 0 60px rgba(250, 204, 21, 0.7);
+    0 0 25px rgba(11, 46, 5, 0.9),
+    0 0 60px rgba(122, 101, 14, 0.7);
 }
