@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Caza Limones</title>
+  <link rel="stylesheet" href="limones.css">
+  <script src="utils.js"></script>
+</head>
+
+<body onload="iniciar()">
+  <div class="contenedor">
+
+<header class="header">
+
+  
+  <h1> ATRAPA LLUVIA DE LIMONES </h1>
+  <p class="subtitulo">LIMÓN QUE CAE... </p>
+  <h2 class="autor">DAVID ATTI</h2>
+
+</header>
+
+    <div class="juego">
+      <canvas id="areaJuego" width="600" height="400"></canvas>
+    </div>
+
+    <div class="panel">
+      <div class="card">
+        <span class="label">Puntaje</span>
+        <span id="txtPuntaje" class="valor">0</span>
+      </div>
+
+      <div class="card">
+        <span class="label">Vidas</span>
+        <span id="txtVidas" class="valor">3</span>
+      </div>
+    </div>
+
+    <section class="botones">
+      <button onclick="moverIzquierda()">⬅ Izquierda</button>
+      <button onclick="moverDerecha()">Derecha ➡</button>
+      <button class="reiniciar" onclick="reiniciar()">🔄 Reiniciar</button>
+    </section>
+
+  </div>
+
+  <script src="limones.js"></script>
+</body>
+</html>
