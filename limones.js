@@ -12,11 +12,11 @@ let limonX=canvas.width/2;
 let limonY=0;
 let puntaje=0;
 let vidas=3;
-let velocidadCaida=200;
+let velocidadCaida=200; // ✅ Valor inicial correcto
 let intervalo;
 
 function iniciar(){
-    intervalo = setInterval(bajarLimon,velocidadCaida); //primerParametros: funcion  segundoParametro: tiempo en milisegundos
+    intervalo = setInterval(bajarLimon,velocidadCaida);
     dibujarSuelo();
     dibujarPersonaje();
     aparecerLimon();
@@ -57,13 +57,11 @@ function actualizarPantalla(){
 function moverIzquierda(){
     personajeX=personajeX-10;
     actualizarPantalla();
-
 }
 
 function moverDerecha(){
     personajeX=personajeX+10;
     actualizarPantalla();
-
 }
 
 function dibujarLimon(){
@@ -83,31 +81,42 @@ function detectarAtrapado(){
         limonX < personajeX + ANCHO_PERSONAJE &&
         limonY + ALTURA_LIMON > personajeY &&
         limonY < personajeY + ALTURA_PERSONAJE){
+        
         aparecerLimon();
-        puntaje = puntaje +1;
+        puntaje = puntaje + 1;
         mostrarEnSpan("txtPuntaje",puntaje);
-    } if( puntaje == 3){
-        velocidadCaida = 150;
-        clearInterval(intervalo);
-        intervalo = setInterval(bajarLimon, velocidadCaida);
-    } if ( puntaje == 6){
-        velocidadCaida = 100;
-        clearInterval(intervalo);
-        intervalo = setInterval(bajarLimon, velocidadCaida);
-    } if ( puntaje == 10 ){
-        clearInterval(intervalo); // SE DETIENE EL JUEGO POR GANAR
-        alert("🎉👏QUE RAPIDO ERES !GANASTE ERES UN CRACK!");
+        
+        // ✅ Aquí dentro validamos el puntaje SOLO cuando se atrapa un limón
+        if(puntaje == 3){
+            velocidadCaida = 150;
+            clearInterval(intervalo);
+            intervalo = setInterval(bajarLimon, velocidadCaida);
+        }
+        
+        if(puntaje == 6){
+            velocidadCaida = 100;
+            clearInterval(intervalo);
+            intervalo = setInterval(bajarLimon, velocidadCaida);
+        }
+        
+        if(puntaje == 10){
+            clearInterval(intervalo);
+            // ✅ Mensaje creativo como pide la consigna
+            alert("🍋🍹 ¡TIENES LOS LIMONES, AHORA TE FALTA SAL Y TEQUILA! 🎉🥳 ¡ERES EL GRAN GANADOR!");
+        }
     }
 }
 
 function detectarPiso(){
-    if (limonY + ALTURA_LIMON == canvas.height - ALTURA_SUELO){
-    aparecerLimon();
-    vidas = vidas -1;
-    mostrarEnSpan("txtVidas",vidas);
-    }else if( vidas <=0 ){
-        clearInterval(intervalo); // SE DETIENE EL JUEGO POR PEDIDA DE VIDAS
-        alert("GAME OVER perdiste con " + puntaje + " puntos");
+    if (limonY + ALTURA_LIMON >= canvas.height - ALTURA_SUELO){
+        aparecerLimon();
+        vidas = vidas - 1;
+        mostrarEnSpan("txtVidas",vidas);
+        
+        if(vidas <= 0){
+            clearInterval(intervalo);
+            alert("💀 GAME OVER 💀 Perdiste con " + puntaje + " puntos");
+        }
     }
 }
 
@@ -135,8 +144,7 @@ function reiniciar(){
 }
 
 // CONTROLES CON TECLADO
-    document.addEventListener("keydown", function(event) {
-
+document.addEventListener("keydown", function(event) {
     if (event.key === "ArrowLeft" || event.key.toLowerCase() === "a") {
         moverIzquierda();
     }
@@ -144,5 +152,4 @@ function reiniciar(){
     if (event.key === "ArrowRight" || event.key.toLowerCase() === "d") {
         moverDerecha();
     }
-
-    });
+});
